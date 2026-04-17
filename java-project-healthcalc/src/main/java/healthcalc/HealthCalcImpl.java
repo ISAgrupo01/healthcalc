@@ -12,7 +12,7 @@ public class HealthCalcImpl implements HealthCalc {
         if (bmi > 150) {
             throw new InvalidHealthDataException("BMI must be within a possible biological range [0-150].");
         }
-        String result;
+        String result = "Obesity";
         if (bmi < 16.0) {
             result = "Severe thinness";
         } else if (bmi < 17.0) {
@@ -33,7 +33,6 @@ public class HealthCalcImpl implements HealthCalc {
         return result;
     }
 
-
     @Override
     public double bmi(double weight, double height) throws InvalidHealthDataException {
         if (weight <= 0) {
@@ -48,7 +47,7 @@ public class HealthCalcImpl implements HealthCalc {
         if (height < 0.30 || height > 3.00) {
             throw new InvalidHealthDataException("Height must be within a possible biological range [0.30-3.00] m.");
         }
-        return weight / (height * height);
+        return weight / Math.pow(height, 2);
     }
     
     @Override

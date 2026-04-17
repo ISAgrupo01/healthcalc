@@ -51,5 +51,3 @@ public interface HealthCalc {
 	public String mapClassification(float map) throws InvalidHealthDataException;
 
 }
-
-
