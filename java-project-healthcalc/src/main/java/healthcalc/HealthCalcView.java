@@ -3,7 +3,6 @@ package healthcalc;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,7 +13,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 
-public class HealthCalcView {
+public class HealthCalcView implements IHealthCalcView {
 	private JFrame frame;
 	private JTextField txtPeso;
 	private JTextField txtAltura;
