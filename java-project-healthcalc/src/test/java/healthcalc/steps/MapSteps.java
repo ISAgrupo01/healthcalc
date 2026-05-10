@@ -9,7 +9,7 @@ import healthcalc.HealthCalcImpl;
 import healthcalc.exceptions.InvalidHealthDataException;
 
 public class MapSteps {
-    private HealthCalcImpl calc = new HealthCalcImpl();
+    private HealthCalcImpl calc = HealthCalcImpl.getInstance();
     private float pas;
     private float pad;
     private float resultadoMAP;
