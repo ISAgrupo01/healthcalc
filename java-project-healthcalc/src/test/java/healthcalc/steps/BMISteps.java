@@ -10,7 +10,7 @@ import healthcalc.HealthCalcImpl;
 import healthcalc.exceptions.InvalidHealthDataException;
 
 public class BMISteps {
-    private HealthCalcImpl calc = new HealthCalcImpl();
+    private HealthCalcImpl calc = HealthCalcImpl.getInstance();
     private double peso;
     private double altura;
     private double resultadoBMI;

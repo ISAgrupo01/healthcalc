@@ -8,13 +8,8 @@ public class HealthCalcControlador {
     private IHealthCalcView vista;   //trabaja con la interfaz, no con la clase concreta
     private HealthCalc modelo;       //trabaja con la interfaz
 
-    /**
-     * Constructor del controlador.
-     *
-     * @param vista   la vista 
-     * @param modelo  el modelo 
-     *                
-     */
+    
+	
     public HealthCalcControlador(IHealthCalcView vista, HealthCalc modelo) {
         this.vista = vista;
         this.modelo = modelo;

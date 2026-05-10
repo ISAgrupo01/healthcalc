@@ -13,7 +13,7 @@ import healthcalc.exceptions.InvalidHealthDataException;
 
 public class IBWSteps {
 
-    private HealthCalcImpl calculadora = new HealthCalcImpl();
+    private HealthCalcImpl calculadora = HealthCalcImpl.getInstance();
     private String sexo;
     private int altura;
     private double resultadoIBW;
@@ -21,7 +21,7 @@ public class IBWSteps {
 
     @Dado("la calculadora de IBW está iniciada")
     public void iniciarCalculadora() {
-        calculadora = new HealthCalcImpl();
+        calculadora = HealthCalcImpl.getInstance();
     }
     
     @Dado("una altura de {int} cm")
