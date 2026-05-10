@@ -1,0 +1,104 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="0xgBpJxmm29qtWx7KJRj">
+    <mxGraphModel dx="2243" dy="2737" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=#2D7600;fillColor=#60a917;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#ffffff;" value="Diagrama UML — Patrón Singleton aplicado a HealthCalcImpl" vertex="1">
+          <mxGeometry height="40" width="1000" x="327" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hc_border_top" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="50" width="700" x="477" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="hc_title2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingTop=4;fontSize=13;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;HealthCalc&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="700" x="477" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="hc_methods" parent="1" style="text;html=1;strokeColor=#82b366;fillColor=#f8fff9;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ bmi(weight: double, height: double): double&#xa;+ bmiClassification(bmi: double): String&#xa;+ ibw(height: int, gender: String): double&#xa;+ calculateMAP(pas: float, pad: float): float&#xa;+ mapClassification(map: float): String" vertex="1">
+          <mxGeometry height="110" width="700" x="477" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="impl_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;HealthCalcImpl&lt;/b&gt;" vertex="1">
+          <mxGeometry height="45" width="900" x="377" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="impl_fields" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="&lt;u&gt;- instance: HealthCalcImpl&lt;/u&gt;" vertex="1">
+          <mxGeometry height="35" width="900" x="377" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="impl_methods" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="- HealthCalcImpl()&#xa;&lt;u&gt;+ getInstance(): HealthCalcImpl&lt;/u&gt;&#xa;+ bmi(weight: double, height: double): double&#xa;+ bmiClassification(bmi: double): String&#xa;+ ibw(height: int, gender: String): double&#xa;+ calculateMAP(pas: float, pad: float): float&#xa;+ mapClassification(map: float): String" vertex="1">
+          <mxGeometry height="160" width="900" x="377" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="mp1_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;MainP1&lt;/b&gt;" vertex="1">
+          <mxGeometry height="45" width="380" x="80" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="mp1_fields" parent="1" style="text;html=1;strokeColor=#d6b656;fillColor=#fffef5;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="" vertex="1">
+          <mxGeometry height="25" width="380" x="80" y="785" as="geometry" />
+        </mxCell>
+        <mxCell id="mp1_methods" parent="1" style="text;html=1;strokeColor=#d6b656;fillColor=#fffef5;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ main(args: String[]): void" vertex="1">
+          <mxGeometry height="35" width="380" x="80" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="ctrl_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;HealthCalcControlador&lt;/b&gt;" vertex="1">
+          <mxGeometry height="45" width="380" x="1190" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="ctrl_fields" parent="1" style="text;html=1;strokeColor=#d6b656;fillColor=#fffef5;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="- vista: IHealthCalcView&#xa;- modelo: HealthCalc" vertex="1">
+          <mxGeometry height="50" width="380" x="1190" y="785" as="geometry" />
+        </mxCell>
+        <mxCell id="ctrl_methods" parent="1" style="text;html=1;strokeColor=#d6b656;fillColor=#fffef5;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ HealthCalcControlador(vista, modelo)&#xa;+ iniciarListeners(): void" vertex="1">
+          <mxGeometry height="50" width="380" x="1190" y="835" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_impl_hc" edge="1" parent="1" source="impl_title" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;endFill=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="hc_methods">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_implements" connectable="0" parent="arrow_impl_hc" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=2;" value="&lt;&lt;implements&gt;&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="h68RxZJYshkfvOkTB_cY-1" connectable="0" parent="arrow_impl_hc" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;implements&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="0.2689" y="4" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow_mp1_impl" edge="1" parent="1" source="mp1_title" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="impl_title">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="270" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="label_use1" connectable="0" parent="arrow_mp1_impl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=2;" value="&lt;span style=&quot;font-style: normal;&quot;&gt;&amp;lt;&amp;lt;use&amp;gt;&amp;gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.2" as="geometry">
+            <mxPoint y="-33" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow_ctrl_impl" edge="1" parent="1" source="ctrl_title" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" target="impl_title">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1350" y="740" />
+              <mxPoint x="1350" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="h68RxZJYshkfvOkTB_cY-2" connectable="0" parent="arrow_ctrl_impl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;use&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="0.2362" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="h68RxZJYshkfvOkTB_cY-3" connectable="0" parent="arrow_ctrl_impl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
+          <mxGeometry relative="1" x="-0.0316" y="5" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="self_ref" edge="1" parent="1" source="impl_fields" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#36393d;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.1;entryDx=0;entryDy=0;fillColor=#ffcc99;" target="impl_title">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1277" y="420" />
+              <mxPoint x="1360" y="420" />
+              <mxPoint x="1360" y="364" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;fontColor=#555555;" value="* Los miembros subrayados (instance, getInstance) son estáticos." vertex="1">
+          <mxGeometry height="30" width="900" x="80" y="920" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
