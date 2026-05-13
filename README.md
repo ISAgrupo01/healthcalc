@@ -439,6 +439,18 @@ Se ha generado un archivo ejecutable que contiene todas las dependencias necesar
 java -jar HealthCalc.jar
 ```
 
+## Práctica 6: Patrones de Diseño
+
+### Patrón Adapter
+Permite que el hospital utilice nuestra calculadora a través de su interfaz (`HealthHospital`). Como son incompatibles, se ha creado HealthHospitalAdapter para traducir sus unidades (gramos y metros) a las nuestras y devolviendo los resultados mediante una clase Tuple.
+
+![Diagrama UML Adapter](design_patterns/Adapter_UML.png)
+
+### Patrón Proxy
+Su función principal es registrar estadísticas de uso (alturas medias, pesos, etc.) de forma anónima mediante la interfaz `HealthStats` antes de delegar el cálculo real al adaptador.
+
+![Diagrama UML Proxy](design_patterns/Proxy_UML.png)
+
 ## Instalación y ejecución
 
 <details>
