@@ -12,7 +12,7 @@ public class MainP1 {
         System.out.println("1. Calcular BMI (Índice de Masa Corporal) - Versión FULL");
         System.out.println("2. Calcular MAP (Presión Arterial Media)");
         System.out.println("3. Calculadora de IBW (Peso Ideal)");
-        System.out.println("4. Prueba Adaptador Hospital Costa del Sol de Marbella");
+        System.out.println("4. Sistema Hospital Costa del Sol de Marbella (Adapte & Proxy");
         System.out.print("Selecciona una opción: ");
 
         int opcion = scanner.nextInt();
@@ -59,9 +59,10 @@ public class MainP1 {
                 System.out.println("Su IBW es: " + ibw + " kg");
             
             } else if (opcion == 4) {
-                //PRUEBA PATRÓN ADAPTER
+                //PRUEBA PATRÓN ADAPTER Y PROXY
                 System.out.println("\n--- SISTEMA HOSPITAL COSTA DEL SOL DE MARBELLA---");
-                HealthHospital hospitalSystem = new HealthHospitalAdapter();
+                HealthHospital adaptadorReal = new HealthHospitalAdapter();
+                HealthHospitalProxy hospitalSystem = new HealthHospitalProxy(adaptadorReal);
 
                 System.out.print("Introduce altura (m): ");
                 float altura = scanner.nextFloat();
@@ -81,6 +82,14 @@ public class MainP1 {
                 //Probar Peso Corporal Ideal con la interfaz del hospital
                 int resultadoIBW = hospitalSystem.pesoCorporalIdeal(genero, altura);
                 System.out.println("Su Peso Corporal Ideal es: " + resultadoIBW + " kg");
+
+                //Mostrar estadísticas recopiladas por Proxy
+                System.out.println("\n--- ESTADÍSTICAS DEL SISTEMA (HealthStats) ---");
+                System.out.println("Número Total Pacientes: " + hospitalSystem.numTotalPacientes());
+                System.out.printf("Altura Media: %.2f m\n", hospitalSystem.alturaMedia());
+                System.out.printf("Peso Medio: %.2f kg\n", hospitalSystem.pesoMedio());
+                System.out.printf("IMC Medio: %.2f\n", hospitalSystem.imcMedio());
+                System.out.println("Número Sexo Hombre: " + hospitalSystem.numSexoH() + " | Número Sexo Mujer: " + hospitalSystem.numSexoM());
 
             } else {
                 System.out.println("Opción no válida.");
