@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Patrón Adapter" id="AdapterDiagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=#2D7600;fillColor=#60a917;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#ffffff;" value="Diagrama UML — Patrón Adapter aplicado a HealthHospital" vertex="1">
+          <mxGeometry x="150" y="30" width="800" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="target_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;HealthHospital&lt;/b&gt;" vertex="1">
+          <mxGeometry x="400" y="120" width="450" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="target_methods" parent="1" style="text;html=1;strokeColor=#82b366;fillColor=#f8fff9;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ indiceMasaCorporal(altura: float, peso: int): Tuple&amp;lt;Float, String&amp;gt;&#xa;+ pesoCorporalIdeal(genero: char, altura: float): int" vertex="1">
+          <mxGeometry x="400" y="170" width="450" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="adapter_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;HealthHospitalAdapter&lt;/b&gt;" vertex="1">
+          <mxGeometry x="400" y="320" width="450" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="adapter_fields" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="- calculadora: HealthCalcImpl" vertex="1">
+          <mxGeometry x="400" y="365" width="450" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="adapter_methods" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ HealthHospitalAdapter()&#xa;+ indiceMasaCorporal(altura: float, peso: int): Tuple&amp;lt;Float, String&amp;gt;&#xa;+ pesoCorporalIdeal(genero: char, altura: float): int" vertex="1">
+          <mxGeometry x="400" y="400" width="450" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="adaptee_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;HealthCalcImpl&lt;/b&gt;" vertex="1">
+          <mxGeometry x="650" y="550" width="400" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="adaptee_fields" parent="1" style="text;html=1;strokeColor=#9673a6;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="&lt;u&gt;- instance: HealthCalcImpl&lt;/u&gt;" vertex="1">
+          <mxGeometry x="650" y="595" width="400" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="adaptee_methods" parent="1" style="text;html=1;strokeColor=#9673a6;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="- HealthCalcImpl()&#xa;&lt;u&gt;+ getInstance(): HealthCalcImpl&lt;/u&gt;&#xa;+ bmi(weight: double, height: double): double&#xa;+ bmiClassification(bmi: double): String&#xa;+ ibw(height: int, gender: String): double&#xa;+ calculateMAP(pas: float, pad: float): float&#xa;+ mapClassification(map: float): String" vertex="1">
+          <mxGeometry x="650" y="630" width="400" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="client_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;MainP1&lt;/b&gt;" vertex="1">
+          <mxGeometry x="50" y="120" width="250" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="client_methods" parent="1" style="text;html=1;strokeColor=#d6b656;fillColor=#fffef5;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="&lt;u&gt;+ main(args: String[]): void&lt;/u&gt;" vertex="1">
+          <mxGeometry x="50" y="165" width="250" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow_adapter_target" edge="1" parent="1" source="adapter_title" target="target_methods" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;endFill=0;strokeWidth=2;exitX=0.5;exitY=0;entryX=0.5;entryY=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_implements" connectable="0" parent="arrow_adapter_target" vertex="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;implements&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" x="0.1" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_adapter_adaptee" edge="1" parent="1" source="adapter_methods" target="adaptee_title" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endFill=0;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.25;entryY=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="625" y="510" />
+              <mxPoint x="750" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="arrow_client_target" edge="1" parent="1" source="client_title" target="target_title" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_use" connectable="0" parent="arrow_client_target" vertex="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;use&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" x="-0.1" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
