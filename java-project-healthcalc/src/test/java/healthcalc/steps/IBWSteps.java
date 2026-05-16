@@ -6,10 +6,8 @@ import io.cucumber.java.es.Dado;
 import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Entonces;
 import io.cucumber.java.es.Y;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import healthcalc.HealthCalcImpl;
-import healthcalc.exceptions.InvalidHealthDataException;
 
 public class IBWSteps {
 
