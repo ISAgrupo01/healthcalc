@@ -14,16 +14,16 @@ public class PersonImpl {
         this.age = age;
     }
 
-    public float getWeight() {
+    public float weight() {
         return weight;
     }
-    public float getHeight() {
+    public float height() {
         return height;
     }
-    public Gender getGender() {
+    public Gender gender() {
         return gender;
     }
-    public int getAge() {
+    public int age() {
         return age;
     }
 
