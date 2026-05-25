@@ -1,7 +1,7 @@
 package healthcalc;
 import healthcalc.exceptions.InvalidHealthDataException;
 
-public class HealthCalcImpl implements HealthCalc {
+public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex {
     private static HealthCalcImpl instance;
     private HealthCalcImpl() {
     }
@@ -95,5 +95,24 @@ public class HealthCalcImpl implements HealthCalc {
         if (map < 70)        result = "Low";
         else if (map <= 100) result = "Normal";
         return result;
+    }
+
+    //p7
+    @Override
+    public float basalMetabolicIndex(Person person) throws InvalidHealthDataException {
+        return (float) bmi(person.weight(), person.height());
+    }
+
+    @Override
+    public BMICategory category(Person person) throws InvalidHealthDataException {
+        float value = basalMetabolicIndex(person);
+        if (value < 16.0f)      return BMICategory.SEVERE_THINNESS;
+        else if (value < 17.0f) return BMICategory.MODERATE_THINNESS;
+        else if (value < 18.5f) return BMICategory.MILD_THINNESS;
+        else if (value < 25.0f) return BMICategory.NORMAL;
+        else if (value < 30.0f) return BMICategory.OVERWEIGHT;
+        else if (value < 35.0f) return BMICategory.OBESE_CLASS_I;
+        else if (value < 40.0f) return BMICategory.OBESE_CLASS_II;
+        else                    return BMICategory.OBESE_CLASS_III;
     }
 }
