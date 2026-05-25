@@ -24,25 +24,16 @@ public class HealthCalcImpl implements HealthCalc {
             throw new InvalidHealthDataException("El IMC debe estar en un rango biológico posible [0-150].");
         }
         String result;
-        if (bmi < 16.0) {
-            result = "Delgadez severa";
-        } else if (bmi < 17.0) {
-            result = "Delgadez moderada";
-        } else if (bmi < 18.5) {
-            result = "Delgadez leve";
-        } else if (bmi < 25.0) {
-            result = "Peso normal";
-        } else if (bmi < 30.0) {
-            result = "Sobrepeso";
-        } else if (bmi < 35.0) {
-            result = "Obesidad Clase I (Moderada)";
-        } else if (bmi < 40.0) {
-            result = "Obesidad Clase II (Severa)";
-        } else {
-            result = "Obesidad Clase III (Mórbida)";
-        }
+        if (bmi < 16.0)       result = "Severe thinness";
+        else if (bmi < 17.0)  result = "Moderate thinness";
+        else if (bmi < 18.5)  result = "Mild thinness";
+        else if (bmi < 25.0)  result = "Normal weight";
+        else if (bmi < 30.0)  result = "Overweight";
+        else if (bmi < 35.0)  result = "Obese Class I (Moderate)";
+        else if (bmi < 40.0)  result = "Obese Class II (Severe)";
+        else                  result = "Obese Class III (Morbid)";
         return result;
-    }
+}
 
     @Override
     public double bmi(double weight, double height) throws InvalidHealthDataException {
@@ -60,6 +51,7 @@ public class HealthCalcImpl implements HealthCalc {
         }
         return weight / (height * height);
     }
+    
     @Override
     public double ibw(int height, String gender) throws InvalidHealthDataException {
         if (height <= 0) {
@@ -99,12 +91,9 @@ public class HealthCalcImpl implements HealthCalc {
         if (map <= 0) {
             throw new InvalidHealthDataException("El MAP no puede ser cero o negativo.");
         }
-        String result = "Alta";
-        if (map < 70) {
-            result = "Baja";
-        } else if (map <= 100) {
-            result = "Normal";
-        }
+        String result = "High";
+        if (map < 70)        result = "Low";
+        else if (map <= 100) result = "Normal";
         return result;
     }
 }
