@@ -5,4 +5,6 @@ public interface Person {
     float height();
     Gender gender();
     int age();
+    float systolicPressure();    // mmHg (PAS)
+    float diastolicPressure();   // mmHg (PAD)
 }
