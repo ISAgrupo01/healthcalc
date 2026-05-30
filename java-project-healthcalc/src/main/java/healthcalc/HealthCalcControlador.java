@@ -42,9 +42,10 @@ public class HealthCalcControlador {
 
                     double alturaM = alturaCm / 100.0;
 
-                    // Delega en el modelo (HealthCalc interface)
-                    double bmi   = modelo.bmi(peso, alturaM);
-                    String clasif = modelo.bmiClassification(bmi);
+                    Person person = new PersonImpl((float) peso, (float) alturaM, Gender.MALE, 0);
+                    BasalMetabolicIndex metricaBMI = (BasalMetabolicIndex) modelo;
+                    float bmi = metricaBMI.basalMetabolicIndex(person);
+                    String clasif = metricaBMI.category(person).toString();
 
                     vista.getLblResultadoBMI().setText("Resultado: " + String.format("%.2f", bmi));
                     vista.getLblClasificacionBMI().setText("Clasificación: " + clasif);
@@ -118,8 +119,11 @@ public class HealthCalcControlador {
                         vista.getLblErrorMAP().setText("Error: la sistólica debe ser mayor que la diastólica.");
                         return;
                     }
-                    float  map   = modelo.calculateMAP(sistolica, diastolica);
-                    String clasif = modelo.mapClassification(map);
+                    Person person = new PersonImpl(0.0f, 0.0f, Gender.MALE, 0, sistolica, diastolica);
+
+                    OtraMetrica metricaMAP = (OtraMetrica) modelo;
+                    float map = metricaMAP.m(person);
+                    String clasif = metricaMAP.mapCategory(person).toString();
 
                     vista.getLblResultadoMAP().setText("Resultado: " + String.format("%.2f", map) + " mmHg");
                     vista.getLblClasificacionMAP().setText("Clasificación: " + clasif);
