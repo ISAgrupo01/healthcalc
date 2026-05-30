@@ -1,7 +1,7 @@
 package healthcalc;
 import healthcalc.exceptions.InvalidHealthDataException;
 
-public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex {
+public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex, OtraMetrica {
     private static HealthCalcImpl instance;
     private HealthCalcImpl() {
     }
@@ -114,5 +114,19 @@ public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex {
         else if (value < 35.0f) return BMICategory.OBESE_CLASS_I;
         else if (value < 40.0f) return BMICategory.OBESE_CLASS_II;
         else                    return BMICategory.OBESE_CLASS_III;
+    }
+
+    //OtraMetrica
+    @Override
+    public float m(Person person) throws InvalidHealthDataException {
+        return calculateMAP(person.systolicPressure(), person.diastolicPressure());
+    }
+
+    @Override
+    public MAPCategory mapCategory(Person person) throws InvalidHealthDataException {
+        float mapValue = m(person);
+        if (mapValue < 70) return MAPCategory.LOW;
+        else if (mapValue <= 100) return MAPCategory.NORMAL;
+        else return MAPCategory.HIGH;
     }
 }
