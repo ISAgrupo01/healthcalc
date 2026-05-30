@@ -106,6 +106,14 @@ public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex, OtraMetr
     @Override
     public BMICategory category(Person person) throws InvalidHealthDataException {
         float value = basalMetabolicIndex(person);
+
+        if (value < 0) {
+            throw new InvalidHealthDataException("El IMC no puede ser negativo.");
+        }
+        if (value > 150) {
+            throw new InvalidHealthDataException("El IMC debe estar en un rango biológico posible [0-150].");
+        }
+
         if (value < 16.0f)      return BMICategory.SEVERE_THINNESS;
         else if (value < 17.0f) return BMICategory.MODERATE_THINNESS;
         else if (value < 18.5f) return BMICategory.MILD_THINNESS;

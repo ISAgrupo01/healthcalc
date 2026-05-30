@@ -14,19 +14,16 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import healthcalc.exceptions.InvalidHealthDataException;
 
-/**
- * Tests for the HealthCalc interface - MAP Metric.
- * * Use the AAA pattern (Arrange, Act, Assert) for the tests.
- * * @author Johana Elena Sánchez
- */
 @DisplayName("Tests para el cálculo de la Presión Arterial Media (MAP)")
 public class MAPTest {
 
     private HealthCalc healthCalc;
+    private OtraMetrica metrica;
 
     @BeforeEach
     void setUp() {
         healthCalc = HealthCalcImpl.getInstance();
+        metrica = (OtraMetrica) healthCalc;
     }
 
     @Nested
@@ -40,7 +37,7 @@ public class MAPTest {
             float pad = 80;
             float expectedMap = (pas + 2 * pad) / 3;
 
-            float result = healthCalc.calculateMAP(pas, pad);
+            float result = metrica.m(new PersonImpl(0, 0, Gender.MALE, 0, pas, pad));
 
             assertEquals(expectedMap, result, 0.01f);
         }
@@ -49,23 +46,23 @@ public class MAPTest {
         @DisplayName("Lanzar excepción ante valores negativos o cero")
         void testMapValoresNulosONegativos() {
             assertAll(
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.calculateMAP(-120, 80)),
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.calculateMAP(120, 0))
+                () -> assertThrows(InvalidHealthDataException.class, () -> metrica.m(new PersonImpl(0, 0, Gender.MALE, 0, -120, 80))),
+                () -> assertThrows(InvalidHealthDataException.class, () -> metrica.m(new PersonImpl(0, 0, Gender.MALE, 0, 120, 0)))
             );
         }
 
         @Test
         @DisplayName("Lanzar excepción ante inconsistencia biológica (PAD >= PAS)")
         void testMapInconsistencia() {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.calculateMAP(70, 110)); //pad mayor que pas
+            assertThrows(InvalidHealthDataException.class, () -> metrica.m(new PersonImpl(0, 0, Gender.MALE, 0, 70, 110)));
         }
 
         @Test
         @DisplayName("Error con presiones imposibles")
         void testLimitesFisicos() {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.calculateMAP(350, 80)); 
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.calculateMAP(120, 250));
-}
+            assertThrows(InvalidHealthDataException.class, () -> metrica.m(new PersonImpl(0, 0, Gender.MALE, 0, 350, 80))); 
+            assertThrows(InvalidHealthDataException.class, () -> metrica.m(new PersonImpl(0, 0, Gender.MALE, 0, 120, 250)));
+        }
     }
 
     @Nested
@@ -73,11 +70,11 @@ public class MAPTest {
     class MAPClassificationTests {
 
         @ParameterizedTest(name = "MAP {0} debe ser clasificado como Low")
-        @ValueSource(floats = {40, 60, 69.99f})  //repito con varios valores MAP en un mismo test para validar que la métrica clasifica correctamente en un rango
+        @ValueSource(floats = {40, 60, 69.99f})  
         @DisplayName("Validación de categoría Low (hay una perfusión baja)")
         void testMapLow(float map) throws InvalidHealthDataException {
-            String expected = "Low";
-            String result = healthCalc.mapClassification(map);
+            String expected = "LOW";
+            String result = metrica.mapCategory(new PersonImpl(0, 0, Gender.MALE, 0, map + 20, map - 10)).toString();
             assertEquals(expected, result);
         }
 
@@ -85,8 +82,8 @@ public class MAPTest {
         @ValueSource(floats = {70, 85, 100})
         @DisplayName("Validación de categoría Normal (hay una perfusión saludable)")
         void testMapNormal(float map) throws InvalidHealthDataException {
-            String expected = "Normal";
-            String result = healthCalc.mapClassification(map);
+            String expected = "NORMAL";
+            String result = metrica.mapCategory(new PersonImpl(0, 0, Gender.MALE, 0, map + 20, map - 10)).toString();
             assertEquals(expected, result);
         }
 
@@ -94,8 +91,8 @@ public class MAPTest {
         @ValueSource(floats = {100.1f, 120, 180})
         @DisplayName("Validación de categoría High (Hay una perfusión alta)")
         void testMapHigh(float map) throws InvalidHealthDataException {
-            String expected = "High";
-            String result = healthCalc.mapClassification(map);
+            String expected = "HIGH";
+            String result = metrica.mapCategory(new PersonImpl(0, 0, Gender.MALE, 0, map + 20, map - 10)).toString();
             assertEquals(expected, result);
         }
 
@@ -103,19 +100,19 @@ public class MAPTest {
         @ValueSource(floats = {-10, 0})
         @DisplayName("Lanzar excepción si se intenta clasificar un MAP nulo o negativo")
         void testMapClassificationInvalid(float map) {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.mapClassification(map));
+            assertThrows(InvalidHealthDataException.class, () -> metrica.mapCategory(new PersonImpl(0, 0, Gender.MALE, 0, map + 20, map - 10)));
         }
 
         @ParameterizedTest(name = "MAP {0} debe ser clasificado como {1}")
         @CsvSource({
-            "60, Low",
-            "70, Normal",
-            "100, Normal",
-            "100.1, High"
+            "60, LOW",
+            "70, NORMAL",
+            "100, NORMAL",
+            "100.1, HIGH"
         })
         @DisplayName("Clasificación de MAP en los límites exactos")
         void testMapClassificationLimites(float map, String expectedCategory) throws InvalidHealthDataException {
-            assertEquals(expectedCategory, healthCalc.mapClassification(map));
+            assertEquals(expectedCategory, metrica.mapCategory(new PersonImpl(0, 0, Gender.MALE, 0, map + 20, map - 10)).toString());
         }
     }
 }

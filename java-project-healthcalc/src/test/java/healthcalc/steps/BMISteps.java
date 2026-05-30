@@ -6,11 +6,16 @@ import io.cucumber.java.es.Entonces;
 import io.cucumber.java.es.Y;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import healthcalc.HealthCalcImpl;
+import healthcalc.BasalMetabolicIndex;
+import healthcalc.PersonImpl;
+import healthcalc.Gender;
 import healthcalc.exceptions.InvalidHealthDataException;
 
 public class BMISteps {
     private HealthCalcImpl calc = HealthCalcImpl.getInstance();
+    private BasalMetabolicIndex metrica = (BasalMetabolicIndex) calc;
     private double peso;
     private double altura;
     private double resultadoBMI;
@@ -31,7 +36,7 @@ public class BMISteps {
     @Cuando("solicito calcular el BMI")
     public void calcularBMI() {
         try {
-            resultadoBMI = calc.bmi(peso, altura);
+            resultadoBMI = metrica.basalMetabolicIndex(new PersonImpl((float)peso, (float)altura, Gender.MALE, 0));
             errorLanzado = false;
         } catch (InvalidHealthDataException e) {
             errorLanzado = true;
@@ -58,7 +63,7 @@ public class BMISteps {
     @Cuando("solicito clasificar el BMI")
     public void clasificarBMI() {
         try {
-            this.clasificacion = calc.bmiClassification(resultadoBMI);
+            this.clasificacion = metrica.category(new PersonImpl((float)resultadoBMI, 1.0f, Gender.MALE, 0)).toString();
             this.errorLanzado = false;
         } catch (InvalidHealthDataException e) {
             this.errorLanzado = true;
@@ -67,6 +72,18 @@ public class BMISteps {
 
     @Entonces("el sistema muestra la clasificación BMI {string}")
     public void verificarClasificacionBMI(String esperada) {
-        assertEquals(esperada, this.clasificacion);
+        String enumEsperado;
+        switch(esperada) {
+            case "Severe thinness": enumEsperado = "SEVERE_THINNESS"; break;
+            case "Moderate thinness": enumEsperado = "MODERATE_THINNESS"; break;
+            case "Mild thinness": enumEsperado = "MILD_THINNESS"; break;
+            case "Normal weight": enumEsperado = "NORMAL"; break;
+            case "Overweight": enumEsperado = "OVERWEIGHT"; break;
+            case "Obese Class I (Moderate)": enumEsperado = "OBESE_CLASS_I"; break;
+            case "Obese Class II (Severe)": enumEsperado = "OBESE_CLASS_II"; break;
+            case "Obese Class III (Morbid)": enumEsperado = "OBESE_CLASS_III"; break;
+            default: enumEsperado = esperada;
+        }
+        assertEquals(enumEsperado, this.clasificacion);
     }
 }
