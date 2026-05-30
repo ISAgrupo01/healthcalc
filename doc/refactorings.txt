@@ -53,3 +53,10 @@ primitivos a los métodos de cálculo.
 (4) Descripción: Se han añadido los métodos systolicPressure() y
     diastolicPressure() a la interfaz Person y los atributos correspondientes a PersonImpl, junto con un constructor corto y otro completo.
 (5) Cambios manuales: 2 firmas nuevas en la interfaz, 2 atributos nuevos,2 getters nuevos y 1 constructor adicional en PersonImpl.
+
+=== REFACTORING 8: Extract Interface (OtraMetrica) + Replace Type Code with Enum (MAPCategory) ===
+(1) Bad smell: God Class en HealthCalcImpl (porque hacía el cálculo de MAP también) y Primitive Obsession en mapClassification (porque devolvía un String en lugar de un Enum).
+(2) Refactoring aplicado: Extract Interface y Replace Type Code with Enum.
+(3) Categoría: Class refactoring.
+(4) Descripción: Se ha extraído la lógica de la presión arterial a una nueva interfaz OtraMetrica y se ha creado un enum MAPCategory para los niveles de perfusión.
+(5) Cambios manuales: 2 archivos nuevos creados (OtraMetrica y MAPCategory), 2 métodos modificados en HealthCalcImpl y 1 línea de declaración modificada (implements OtraMetrica).
