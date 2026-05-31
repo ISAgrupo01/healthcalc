@@ -80,8 +80,9 @@ public class HealthCalcControlador {
 
                     String sexo = ((String) vista.getComboSexo().getSelectedItem()).toLowerCase();
 
-                    // Delega en el modelo (HealthCalc interface)
-                    double ibw = modelo.ibw(altura, sexo);
+                    Person person = new PersonImpl(0f, altura / 100f, sexo.equals("hombre") ? Gender.MALE : Gender.FEMALE, 0);
+                    IdealBodyWeight metricaIBW = (IdealBodyWeight) modelo;
+                    float ibw = metricaIBW.idealBodyWeight(person);
                     vista.getLblResultadoIBW().setText("Resultado: " + String.format("%.2f", ibw) + " kg");
 
                 } catch (NumberFormatException ex) {

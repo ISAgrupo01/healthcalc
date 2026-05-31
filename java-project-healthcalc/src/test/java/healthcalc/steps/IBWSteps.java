@@ -8,10 +8,14 @@ import io.cucumber.java.es.Entonces;
 import io.cucumber.java.es.Y;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import healthcalc.HealthCalcImpl;
+import healthcalc.IdealBodyWeight;
+import healthcalc.PersonImpl;
+import healthcalc.Gender;
 
 public class IBWSteps {
 
     private HealthCalcImpl calculadora = HealthCalcImpl.getInstance();
+    private IdealBodyWeight metrica = (IdealBodyWeight) calculadora;
     private String sexo;
     private int altura;
     private double resultadoIBW;
@@ -35,7 +39,10 @@ public class IBWSteps {
     @Cuando("solicito calcular el IBW")
     public void ejecutarIBW() {
         try {
-            resultadoIBW = calculadora.ibw(altura, sexo);
+            if (!sexo.equals("hombre") && !sexo.equals("mujer")) {
+                throw new healthcalc.exceptions.InvalidHealthDataException("Género no válido");
+            }
+            resultadoIBW = metrica.idealBodyWeight(new PersonImpl(0f, altura / 100f, sexo.equals("hombre") ? Gender.MALE : Gender.FEMALE, 0));
             errorLanzado = false;
         } catch (Exception e) {
             errorLanzado = true;

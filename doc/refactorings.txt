@@ -60,3 +60,10 @@ primitivos a los métodos de cálculo.
 (3) Categoría: Class refactoring.
 (4) Descripción: Se ha extraído la lógica de la presión arterial a una nueva interfaz OtraMetrica y se ha creado un enum MAPCategory para los niveles de perfusión.
 (5) Cambios manuales: 2 archivos nuevos creados (OtraMetrica y MAPCategory), 2 métodos modificados en HealthCalcImpl y 1 línea de declaración modificada (implements OtraMetrica).
+
+=== REFACTORING 9: Extract Interface (IdealBodyWeight) ===
+(1) Bad smell: God Class (HealthCalcImpl agrupa BMI + IBW + MAP sin separación de responsabilidades) y acoplamiento a clase concreta.
+(2) Refactoring aplicado: Extract Interface.
+(3) Categoría: Class refactoring.
+(4) Descripción: Se ha extraído la interfaz IdealBodyWeight con el método idealBodyWeight(Person), siguiendo el mismo patrón que BasalMetabolicIndex y OtraMetrica. HealthCalcImpl ahora implementa también esta nueva interfaz.
+(5) Cambios manuales: 1 archivo nuevo (interfaz IdealBodyWeight), 1 línea de declaración modificada en HealthCalcImpl y 1 método nuevo añadido.
