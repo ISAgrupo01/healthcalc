@@ -1,7 +1,7 @@
 package healthcalc;
 import healthcalc.exceptions.InvalidHealthDataException;
 
-public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex, OtraMetrica {
+public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex, OtraMetrica, IdealBodyWeight {
     private static HealthCalcImpl instance;
     private HealthCalcImpl() {
     }
@@ -136,5 +136,10 @@ public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex, OtraMetr
         if (mapValue < 70) return MAPCategory.LOW;
         else if (mapValue <= 100) return MAPCategory.NORMAL;
         else return MAPCategory.HIGH;
+    }
+
+    @Override
+    public float idealBodyWeight(Person person) throws InvalidHealthDataException {
+        return (float) ibw((int)(person.height() * 100), person.gender() == Gender.MALE ? "hombre" : "mujer");
     }
 }
