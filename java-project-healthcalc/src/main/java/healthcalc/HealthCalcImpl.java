@@ -1,7 +1,7 @@
 package healthcalc;
 import healthcalc.exceptions.InvalidHealthDataException;
 
-public class HealthCalcImpl implements HealthCalc {
+public class HealthCalcImpl implements HealthCalc, BasalMetabolicIndex, OtraMetrica, IdealBodyWeight {
     private static HealthCalcImpl instance;
     private HealthCalcImpl() {
     }
@@ -23,26 +23,17 @@ public class HealthCalcImpl implements HealthCalc {
         if (bmi > 150) {
             throw new InvalidHealthDataException("El IMC debe estar en un rango biológico posible [0-150].");
         }
-        String result = "Obesity";
-        if (bmi < 16.0) {
-            result = "Delgadez severa";
-        } else if (bmi < 17.0) {
-            result = "Delgadez moderada";
-        } else if (bmi < 18.5) {
-            result = "Delgadez leve";
-        } else if (bmi < 25.0) {
-            result = "Peso normal";
-        } else if (bmi < 30.0) {
-            result = "Sobrepeso";
-        } else if (bmi < 35.0) {
-            result = "Obesidad Clase I (Moderada)";
-        } else if (bmi < 40.0) {
-            result = "Obesidad Clase II (Severa)";
-        } else {
-            result = "Obesidad Clase III (Mórbida)";
-        }
+        String result;
+        if (bmi < 16.0)       result = "Severe thinness";
+        else if (bmi < 17.0)  result = "Moderate thinness";
+        else if (bmi < 18.5)  result = "Mild thinness";
+        else if (bmi < 25.0)  result = "Normal weight";
+        else if (bmi < 30.0)  result = "Overweight";
+        else if (bmi < 35.0)  result = "Obese Class I (Moderate)";
+        else if (bmi < 40.0)  result = "Obese Class II (Severe)";
+        else                  result = "Obese Class III (Morbid)";
         return result;
-    }
+}
 
     @Override
     public double bmi(double weight, double height) throws InvalidHealthDataException {
@@ -58,8 +49,9 @@ public class HealthCalcImpl implements HealthCalc {
         if (height < 0.30 || height > 3.00) {
             throw new InvalidHealthDataException("La altura debe estar en un rango biológico posible [0.30-3.00] m.");
         }
-        return weight / Math.pow(height, 2);
+        return weight / (height * height);
     }
+    
     @Override
     public double ibw(int height, String gender) throws InvalidHealthDataException {
         if (height <= 0) {
@@ -99,12 +91,55 @@ public class HealthCalcImpl implements HealthCalc {
         if (map <= 0) {
             throw new InvalidHealthDataException("El MAP no puede ser cero o negativo.");
         }
-        String result = "Alta";
-        if (map < 70) {
-            result = "Baja";
-        } else if (map <= 100) {
-            result = "Normal";
-        }
+        String result = "High";
+        if (map < 70)        result = "Low";
+        else if (map <= 100) result = "Normal";
         return result;
+    }
+
+    //p7
+    @Override
+    public float basalMetabolicIndex(Person person) throws InvalidHealthDataException {
+        return (float) bmi(person.weight(), person.height());
+    }
+
+    @Override
+    public BMICategory category(Person person) throws InvalidHealthDataException {
+        float value = basalMetabolicIndex(person);
+
+        if (value < 0) {
+            throw new InvalidHealthDataException("El IMC no puede ser negativo.");
+        }
+        if (value > 150) {
+            throw new InvalidHealthDataException("El IMC debe estar en un rango biológico posible [0-150].");
+        }
+
+        if (value < 16.0f)      return BMICategory.SEVERE_THINNESS;
+        else if (value < 17.0f) return BMICategory.MODERATE_THINNESS;
+        else if (value < 18.5f) return BMICategory.MILD_THINNESS;
+        else if (value < 25.0f) return BMICategory.NORMAL;
+        else if (value < 30.0f) return BMICategory.OVERWEIGHT;
+        else if (value < 35.0f) return BMICategory.OBESE_CLASS_I;
+        else if (value < 40.0f) return BMICategory.OBESE_CLASS_II;
+        else                    return BMICategory.OBESE_CLASS_III;
+    }
+
+    //OtraMetrica
+    @Override
+    public float m(Person person) throws InvalidHealthDataException {
+        return calculateMAP(person.systolicPressure(), person.diastolicPressure());
+    }
+
+    @Override
+    public MAPCategory mapCategory(Person person) throws InvalidHealthDataException {
+        float mapValue = m(person);
+        if (mapValue < 70) return MAPCategory.LOW;
+        else if (mapValue <= 100) return MAPCategory.NORMAL;
+        else return MAPCategory.HIGH;
+    }
+
+    @Override
+    public float idealBodyWeight(Person person) throws InvalidHealthDataException {
+        return (float) ibw((int)(person.height() * 100), person.gender() == Gender.MALE ? "hombre" : "mujer");
     }
 }

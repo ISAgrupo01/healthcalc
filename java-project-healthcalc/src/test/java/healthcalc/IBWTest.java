@@ -16,10 +16,12 @@ import healthcalc.exceptions.InvalidHealthDataException;
 @DisplayName("Tests para la el calculo del IBW.")
 public class IBWTest {
     private HealthCalc healthCalc;
+    private IdealBodyWeight metrica;
 
     @BeforeEach
     void setUp() {
         healthCalc = HealthCalcImpl.getInstance();
+        metrica = (IdealBodyWeight) healthCalc; 
     }
 
     @Nested
@@ -31,7 +33,7 @@ public class IBWTest {
             int height = 175;
             double expectedIbw = 68.75; // Calculated for height 175cm, male
 
-            double result = healthCalc.ibw(height, "hombre");
+            double result = metrica.idealBodyWeight(new PersonImpl(0f, height / 100f, Gender.MALE, 0));
             assertEquals(expectedIbw, result, 0.01);
         }
 
@@ -41,7 +43,7 @@ public class IBWTest {
             int height = 165;
             double expectedIbw = 59.0; // Calculated for height 165cm, female 
             
-            double result = healthCalc.ibw(height, "mujer");
+            double result = metrica.idealBodyWeight(new PersonImpl(0f, height / 100f, Gender.FEMALE, 0));
             assertEquals(expectedIbw, result, 0.01);
         }
 
@@ -49,7 +51,7 @@ public class IBWTest {
         @DisplayName("Lanzar excepción para altura por debajo del rango válido")
         void testIbwHeightBelowRange() {
             assertThrows(InvalidHealthDataException.class, () -> {
-                healthCalc.ibw(100, "hombre");
+                metrica.idealBodyWeight(new PersonImpl(0f, 100 / 100f, Gender.MALE, 0));
             });
         }
 
@@ -73,7 +75,7 @@ public class IBWTest {
         @DisplayName("Lanzar excepción para altura negativa")
         void testIbwNegativeHeight() {
             assertThrows(InvalidHealthDataException.class, () -> {
-                healthCalc.ibw(-175, "hombre");
+                metrica.idealBodyWeight(new PersonImpl(0f, -175 / 100f, Gender.MALE, 0));
             });
         }
 
@@ -81,7 +83,7 @@ public class IBWTest {
         @DisplayName("Lanzar excepción para altura cero o nula")
         void testIbwZeroHeight() {
             assertThrows(InvalidHealthDataException.class, () -> {
-                healthCalc.ibw(0, "hombre");
+                metrica.idealBodyWeight(new PersonImpl(0f, 0f, Gender.MALE, 0));
             });
         }
 
@@ -91,7 +93,7 @@ public class IBWTest {
         void testIbwMinHeightInvalid(int height) {
             
             assertThrows(InvalidHealthDataException.class, () -> {
-                healthCalc.ibw(height, "hombre");
+                metrica.idealBodyWeight(new PersonImpl(0f, height / 100f, Gender.MALE, 0));
             });
         }
 
@@ -101,7 +103,7 @@ public class IBWTest {
         void testIbwMaxHeightInvalid(int height) {
             
             assertThrows(InvalidHealthDataException.class, () -> {
-                healthCalc.ibw(height, "hombre");
+                metrica.idealBodyWeight(new PersonImpl(0f, height / 100f, Gender.MALE, 0));
             });
         }
 

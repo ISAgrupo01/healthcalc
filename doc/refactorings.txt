@@ -1,0 +1,69 @@
+=== REFACTORING 1: Introduce Parameter Object (Person) ===
+(1) Bad smell: Data Clumps (grupos de datos repetidos: weight+height+gender pasados
+    como parámetros sueltos a bmi() e ibw()).
+(2) Refactoring aplicado: Introduce Parameter Object.
+(3) Categoría: Class refactoring.
+(4) Descripción: Se ha creado la clase PersonImpl para agrupar los datos de la persona (weight, height, gender, age) que antes se pasaban como parámetros 
+primitivos a los métodos de cálculo.
+(5) Cambios manuales: 1 clase nueva (PersonImpl) con 4 atributos y constructor.
+
+=== REFACTORING 2: Replace Type Code with Enum (Gender) ===
+(1) Bad smell: Primitive Obsession / Type Code (género representado como String "hombre"/"mujer").
+(2) Refactoring aplicado: Replace Type Code with Enum.
+(3) Categoría: Class refactoring (introducción de tipo).
+(4) Descripción: Se ha creado la enum Gender con valores FEMALE y MALE para sustituir los String que se usaban para representar el sexo.
+(5) Cambios manuales: 1 enum nueva (Gender) con 2 valores.
+
+=== REFACTORING 3: Encapsulate Field (atributos de PersonImpl) ===
+(1) Bad smell: Public Fields / falta de encapsulación.
+(2) Refactoring aplicado: Encapsulate Field.
+(3) Categoría: Attribute refactoring.
+(4) Descripción: Se han hecho privados los atributos de PersonImpl y se han añadido métodos de acceso para respetar el principio de encapsulación.
+(5) Cambios manuales: 0 (lo hace la IDE automáticamente sobre 4 campos).
+
+=== REFACTORING 4: Rename Method (getters de PersonImpl) ===
+(1) Bad smell: Inconsistent Naming (los getters generados se llamaban getWeight, getHeight… pero el esquema UML exige weight(), height(), gender(), age()).
+(2) Refactoring aplicado: Rename Method.
+(3) Categoría: Method refactoring.
+(4) Descripción: Se han renombrado los métodos getWeight→weight, getHeight→height,
+    getGender→gender, getAge→age para alinearlos con la interfaz del esquema.
+(5) Cambios manuales: 0 (lo hace la IDE en cascada sobre 4 métodos).
+
+=== REFACTORING 5: Extract Interface (Person) ===
+(1) Bad smell: Acoplamiento a clase concreta (los clientes dependerían de PersonImpl).
+(2) Refactoring aplicado: Extract Interface.
+(3) Categoría: Class refactoring.
+(4) Descripción: Se ha extraído la interfaz Person a partir de PersonImpl, con los métodos weight(), height(), gender() y age(). Permite que los clientes dependan de la abstracción.
+(5) Cambios manuales: 0 (la IDE genera la interfaz y modifica PersonImpl).
+
+=== REFACTORING 6: Extract Interface (BasalMetabolicIndex) + Replace Type Code with Enum (BMICategory) ===
+(1) Bad smell: God Class (HealthCalcImpl agrupa BMI + IBW + MAP) + Primitive Obsession en el tipo de retorno de la clasificación (String en vez de enum).
+(2) Refactoring aplicado: Extract Interface + Replace Type Code with Enum.
+(3) Categoría: Class refactoring.
+(4) Descripción: Se ha extraído la interfaz BasalMetabolicIndex con los métodos basalMetabolicIndex(Person) y category(Person), y se ha creado la enum BMICategory con las 8 categorías OMS. 
+    HealthCalcImpl ahora implementa también esta nueva interfaz.
+(5) Cambios manuales: 2 archivos nuevos (interfaz + enum), 1 línea de declaración
+    modificada en HealthCalcImpl y 2 métodos nuevos añadidos.
+
+=== REFACTORING 7: Extender Person con PAS y PAD ===
+(1) Bad smell: Insufficient Data in Abstraction (Person no contiene toda la información necesaria para que la métrica MAP encaje en el esquema
+    OtraMétrica.m(person)).
+(2) Refactoring aplicado: Add Field a interfaz y a clase.
+(3) Categoría: Class refactoring (extensión de interfaz y clase).
+(4) Descripción: Se han añadido los métodos systolicPressure() y
+    diastolicPressure() a la interfaz Person y los atributos correspondientes a PersonImpl, junto con un constructor corto y otro completo.
+(5) Cambios manuales: 2 firmas nuevas en la interfaz, 2 atributos nuevos,2 getters nuevos y 1 constructor adicional en PersonImpl.
+
+=== REFACTORING 8: Extract Interface (OtraMetrica) + Replace Type Code with Enum (MAPCategory) ===
+(1) Bad smell: God Class en HealthCalcImpl (porque hacía el cálculo de MAP también) y Primitive Obsession en mapClassification (porque devolvía un String en lugar de un Enum).
+(2) Refactoring aplicado: Extract Interface y Replace Type Code with Enum.
+(3) Categoría: Class refactoring.
+(4) Descripción: Se ha extraído la lógica de la presión arterial a una nueva interfaz OtraMetrica y se ha creado un enum MAPCategory para los niveles de perfusión.
+(5) Cambios manuales: 2 archivos nuevos creados (OtraMetrica y MAPCategory), 2 métodos modificados en HealthCalcImpl y 1 línea de declaración modificada (implements OtraMetrica).
+
+=== REFACTORING 9: Extract Interface (IdealBodyWeight) ===
+(1) Bad smell: God Class (HealthCalcImpl agrupa BMI + IBW + MAP sin separación de responsabilidades) y acoplamiento a clase concreta.
+(2) Refactoring aplicado: Extract Interface.
+(3) Categoría: Class refactoring.
+(4) Descripción: Se ha extraído la interfaz IdealBodyWeight con el método idealBodyWeight(Person), siguiendo el mismo patrón que BasalMetabolicIndex y OtraMetrica. HealthCalcImpl ahora implementa también esta nueva interfaz.
+(5) Cambios manuales: 1 archivo nuevo (interfaz IdealBodyWeight), 1 línea de declaración modificada en HealthCalcImpl y 1 método nuevo añadido.

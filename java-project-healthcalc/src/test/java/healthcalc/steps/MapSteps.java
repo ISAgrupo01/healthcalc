@@ -5,11 +5,16 @@ import io.cucumber.java.es.Entonces;
 import io.cucumber.java.es.Y;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import healthcalc.Gender;
 import healthcalc.HealthCalcImpl;
+import healthcalc.OtraMetrica;
+import healthcalc.PersonImpl;
 import healthcalc.exceptions.InvalidHealthDataException;
 
 public class MapSteps {
     private HealthCalcImpl calc = HealthCalcImpl.getInstance();
+    private OtraMetrica metrica = (OtraMetrica) calc;
     private float pas;
     private float pad;
     private float resultadoMAP;
@@ -29,7 +34,7 @@ public class MapSteps {
     @Cuando("solicito calcular la MAP")
     public void calcularMAP() {
         try {
-            resultadoMAP =calc.calculateMAP(pas, pad);
+            resultadoMAP = metrica.m(new PersonImpl(0, 0, Gender.MALE, 0, pas, pad));
             errorLanzado= false;
         } 
         catch (InvalidHealthDataException e) {
@@ -58,13 +63,17 @@ public class MapSteps {
 
     @Cuando("solicito clasificar la MAP")
     public void clasificarMAP() {
-
-        clasificacion = calc.mapClassification(resultadoMAP);
+        try {
+            clasificacion = metrica.mapCategory(new PersonImpl(0, 0, Gender.MALE, 0, resultadoMAP + 20, resultadoMAP - 10)).toString();
+            errorLanzado = false;
+        } catch (InvalidHealthDataException e) {
+            errorLanzado = true;
+        }
     }
 
     @Entonces("el sistema muestra la clasificación {string}")
     public void verificarClasificacion(String esperada) {
 
-        assertEquals(esperada, clasificacion);
+        assertEquals(esperada.toUpperCase(), clasificacion.toUpperCase());
     }
 }
