@@ -1,0 +1,45 @@
+Caso de Uso: Calcular Presión Arterial Media (MAP)
+ID: CU-03
+Actor principal: Usuario
+Ámbito: HealthCalc
+Nivel: Objetivo de usuario
+
+Descripción: El usuario desea calcular su presión arterial media a partir de sus datos. El sistema valida la información, realiza el cálculo y muestra el resultado.
+
+Stakeholders e intereses:
+- Usuario: Conocer su presión arterial media de forma sencilla y correcta.
+- Profesional sanitario: Disponer de un valor fiable que pueda servir de apoyo clínico.
+
+Precondiciones:
+- El usuario dispone de los datos necesarios para calcular la MAP.
+- El sistema está disponible.
+
+Garantía de éxito:
+- El sistema calcula la MAP correctamente y muestra el resultado al usuario.
+
+Garantía mínima:
+- Si no puede completarse el cálculo, el sistema no genera un resultado incorrecto.
+- El sistema informa del problema.
+
+Disparador:
+- El usuario solicita calcular la MAP.
+
+Escenario principal de éxito:
+1. El usuario solicita el cálculo de la MAP.
+2. El sistema solicita los datos necesarios para el cálculo.
+3. El usuario introduce los datos requeridos.
+4. El sistema valida que los datos son completos y tienen valores aceptables.
+5. El sistema calcula la MAP.
+6. El sistema muestra el valor obtenido al usuario.
+
+Extensiones:
+3a. El usuario no introduce todos los datos requeridos:
+3a1. El sistema informa de que faltan datos obligatorios para el cálculo.
+3a2. El sistema solicita completar los datos y vuelve al paso 3.
+
+4a. Algún dato introducido no tiene un valor válido:
+4a1. El sistema informa de que existe un valor no válido.
+4a2. El sistema solicita corregir los datos y vuelve al paso 3.
+
+5a. Error en el cálculo:
+5a1. El sistema informa del problema.

@@ -1,0 +1,42 @@
+CASO DE USO: “Cálculo de BMI”
+
+ID: CU-01 
+
+Actor principal: Usuario de la calculadora 
+
+Ámbito: HealthCalc
+
+Nivel: Objetivo de usuario
+
+Descripción: El usuario desea obtener el valor de su BMI. Para ello, el usuario debe introducir su peso en kilogramos y su altura en centímetros. La calculadora procesará estos datos y le devolverá al usuario el valor de su BMI junto con su clasificación nutricional correspondiente.
+
+Stakeholders e intereses: 
+    Usuario: Quiere conocer su IMC para evaluar su estado de salud.
+
+    Personal Sanitario: Requiere una métrica estandarizada para clasificar el peso.
+
+Precondiciones: El usuario debe saber sus datos actuales de peso y estatura.
+
+Disparador: El usuario selecciona que quiere calcular su BMI.
+
+Garantía de éxito: El usuario obtiene su valor de BMI y su categoría (ej. Normal, Sobrepeso) satisfactoriamente.
+
+Garantía mínima: El sistema informa del error y vuelve al menú de inicio.
+
+Escenario principal de éxito:
+
+    1.El usuario selecciona que quiere calcular su BMI.
+
+    2.La calculadora solicita al usuario que introduzca los datos necesarios (peso y altura).
+
+    3.El usuario introduce los valores de peso en kg y altura en cm.
+
+    4.La calculadora comprueba que los datos introducidos son valores numéricos válidos y positivos.
+
+    5.La calculadora aplica la fórmula matemática.
+
+    6.La calculadora devuelve el valor del BMI y la clasificación de la OMS al usuario.
+
+Extensiones:
+4a. El usuario ha introducido valores incorrectos. La calculadora informará al usuario que los valores introducidos no son válidos y volverá al punto de partida para que los corrija.
+4b. Los datos están fuera de rangos biológicos lógicos. La calculadora pedirá al usuario confirmar si los datos son correctos antes de mostrar el resultado.

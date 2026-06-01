@@ -1,0 +1,34 @@
+CASO DE USO: “Cálculo de IBW”
+
+ID: CU-02
+
+Actor principal: Usuario de la calculadora
+
+Ámbito: Ordenador
+
+Nivel: Objetivo de usuario
+
+Descripción: El usuario desea obtener el valor de su IBW. Para ello, el usuario debe seleccionar primero el método con el que este cálculo se va a realizar, luego deberá introducir el peso en kilogramos y la altura (que, dependiendo del método, deberá de introducirla en centímetros o en pulgadas) y finalmente la calculadora le devolverá al usuario el valor de su IBW.
+
+Interesados: Usuario: Quiere obtener su IBW
+
+Precondiciones: El usuario debe de saber los datos de su peso y su estatura.
+
+Disparador: El usuario selecciona que quiere calcular su IBW.
+
+Garantía de éxito: El usuario obtiene su IBW satisfactoriamente.
+
+Garantía mínima: Vuelve al inicio.
+
+Escenario principal de éxito:
+1. El usuario selecciona que quiere calcular su IBW
+2. La calculadora da a elegir entre todas las opciones para calcularlo.
+3. El usuario selecciona uno de esos métodos para calcular su IBW
+4. La calculadora le dice al usuario que introduzca los datos pertinentes (peso / altura)
+5. El usuario introduce los valores de peso y altura
+6. La calculadora comprueba que esos datos son válidos
+7. La calculadora devuelve el valor de su IBW
+
+Extensiones:
+3a. El usuario puede seleccionar un método que no existe o que no está identificado. La calculadora informará al usuario que no ha seleccionado un método válido y volverá al punto de partida.
+6a. El usuario ha introducido valores incorrectos. La calculadora informará al usuario que los valores que ha introducido no son válidos y volverá al punto de partida.
