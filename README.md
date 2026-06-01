@@ -352,6 +352,38 @@ A partir del valor numérico obtenido, el sistema categoriza el estado del pacie
 </details>
 
 
+## Práctica 6: Patrones de Diseño
+
+### Patrón Singleton
+Se aplica sobre `HealthCalcImpl` para garantizar que solo exista una única instancia de la calculadora en toda la aplicación. El constructor es privado y se accede a la instancia mediante el método estático `getInstance()`. Tanto `MainP1` como `HealthCalcControlador` (interfaz gráfica) obtienen la calculadora a través de este método.
+
+![Diagrama UML Singleton](design_patterns/Singleton_UML.drawio.png)
+
+### Patrón Adapter
+Permite que el hospital utilice nuestra calculadora a través de su interfaz (`HealthHospital`). Como son incompatibles, se ha creado HealthHospitalAdapter para traducir sus unidades (gramos y metros) a las nuestras y devolviendo los resultados mediante una clase Tuple.
+
+![Diagrama UML Adapter](design_patterns/Adapter_UML.png)
+
+### Patrón Proxy
+Su función principal es registrar estadísticas de uso (alturas medias, pesos, etc.) de forma anónima mediante la interfaz `HealthStats` antes de delegar el cálculo real al adaptador.
+
+![Diagrama UML Proxy](design_patterns/Proxy_UML.png)
+
+### Patrón Decorator
+Añade comportamiento extra a la calculadora del hospital sin modificarla. Se han creado dos versiones concretas que extienden la clase abstracta `HealthCalcDecorator`:
+- **`HealthCalcEuropeDecorator`**: acepta altura en metros y peso en gramos, e imprime el resultado del IMC en español e inglés.
+- **`HealthCalcAmericaDecorator`**: acepta altura en pies y peso en libras, convierte internamente las unidades, e imprime igualmente el resultado en ambos idiomas.
+
+![Diagrama UML Decorator](design_patterns/Decorator_UML.drawio.png)
+
+### Diagrama combinado de todos los patrones
+
+El siguiente diagrama muestra cómo los cuatro patrones se integran en una única cadena de llamadas:
+
+> `MainP1` → `HealthCalcDecorator` → `HealthHospitalProxy` → `HealthHospitalAdapter` → `HealthCalcImpl` (Singleton)
+
+![Diagrama UML Combinado](design_patterns/Combined_UML.drawio.png)
+
 ## Instalación y ejecución
 
 <details>

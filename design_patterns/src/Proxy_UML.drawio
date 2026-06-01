@@ -1,0 +1,71 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Patrón Proxy" id="ProxyDiagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=#2D7600;fillColor=#60a917;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#ffffff;" value="Diagrama UML — Patrón Proxy aplicado a HealthStats" vertex="1">
+          <mxGeometry x="150" y="30" width="850" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iface_hospital" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;HealthHospital&lt;/b&gt;" vertex="1">
+          <mxGeometry x="100" y="120" width="400" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="methods_hospital" parent="1" style="text;html=1;strokeColor=#82b366;fillColor=#f8fff9;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ indiceMasaCorporal(altura: float, peso: int): Tuple&amp;lt;Float, String&amp;gt;&#xa;+ pesoCorporalIdeal(genero: char, altura: float): int" vertex="1">
+          <mxGeometry x="100" y="170" width="400" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iface_stats" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;HealthStats&lt;/b&gt;" vertex="1">
+          <mxGeometry x="650" y="120" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="methods_stats" parent="1" style="text;html=1;strokeColor=#82b366;fillColor=#f8fff9;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ alturaMedia(): float&#xa;+ pesoMedio(): float&#xa;+ imcMedio(): float&#xa;+ numSexoH(): int&#xa;+ numSexoM(): int&#xa;+ numTotalPacientes(): int" vertex="1">
+          <mxGeometry x="650" y="170" width="300" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proxy_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;HealthHospitalProxy&lt;/b&gt;" vertex="1">
+          <mxGeometry x="350" y="380" width="450" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy_fields" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="- calculadoraReal: HealthHospital&#xa;- totalPacientes: int&#xa;- sumaAltura, sumaPesoKg, sumaImc: float&#xa;- hombres, mujeres: int" vertex="1">
+          <mxGeometry x="350" y="425" width="450" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="proxy_methods" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#ffffff;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;strokeWidth=2;rounded=0;" value="+ HealthHospitalProxy(real: HealthHospital)&#xa;+ indiceMasaCorporal(...): Tuple&amp;lt;Float, String&amp;gt;&#xa;+ pesoCorporalIdeal(...): int&#xa;+ alturaMedia(): float (y resto de HealthStats...)" vertex="1">
+          <mxGeometry x="350" y="500" width="450" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="adapter_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;HealthHospitalAdapter&lt;/b&gt;" vertex="1">
+          <mxGeometry x="50" y="400" width="200" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="main_title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=13;verticalAlign=middle;" value="&lt;b&gt;MainP1&lt;/b&gt;" vertex="1">
+          <mxGeometry x="475" y="700" width="200" height="45" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_proxy_hosp" edge="1" parent="1" source="proxy_title" target="methods_hospital" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;endFill=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="575" y="320" /><mxPoint x="300" y="320" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="rel_proxy_stats" edge="1" parent="1" source="proxy_title" target="methods_stats" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;endFill=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+             <Array as="points"><mxPoint x="575" y="320" /><mxPoint x="800" y="320" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="rel_adapter_hosp" edge="1" parent="1" source="adapter_title" target="methods_hospital" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=block;endFill=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_proxy_real" edge="1" parent="1" source="proxy_fields" target="adapter_title" style="edgeStyle=orthogonalEdgeStyle;endArrow=open;endFill=0;strokeWidth=2;exitX=0;exitY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rel_main_proxy" edge="1" parent="1" source="main_title" target="proxy_methods" style="edgeStyle=orthogonalEdgeStyle;dashed=1;endArrow=open;endFill=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

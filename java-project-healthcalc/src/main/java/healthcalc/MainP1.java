@@ -1,0 +1,147 @@
+package healthcalc;
+
+import healthcalc.exceptions.InvalidHealthDataException;
+import java.util.Scanner;
+
+public class MainP1 {
+    public static void main(String[] args) {
+        HealthCalc calculator = HealthCalcImpl.getInstance();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== CALCULADORA DE SALUD GRUPAL ===");
+        System.out.println("1. Calcular BMI (Índice de Masa Corporal) - Versión FULL");
+        System.out.println("2. Calcular MAP (Presión Arterial Media)");
+        System.out.println("3. Calculadora de IBW (Peso Ideal)");
+        System.out.println("4. Sistema Hospital Costa del Sol de Marbella (Adapte & Proxy");
+        System.out.println("5. Calculadora Europea y Americana con mensajes bilingues (Decorator)");
+        System.out.print("Selecciona una opción: ");
+
+        int opcion = scanner.nextInt();
+        
+        try {
+          
+            if (opcion == 1) {
+                //BMI
+                System.out.print("Introduce tu peso (kg): ");
+                double weight = scanner.nextDouble();
+
+                System.out.print("Introduce tu altura (m): ");
+                double height = scanner.nextDouble();
+
+                double bmi = calculator.bmi(weight, height);
+                String clasificacion = calculator.bmiClassification(bmi);
+
+                System.out.println("\n--- RESULTADOS ---");
+                System.out.printf("Valor BMI: %.2f kg/m2\n", bmi);
+                System.out.println("Clasificación OMS (FULL): " + clasificacion);
+            
+            } else if (opcion == 2) {
+                //MAP
+                System.out.print("Introduce la Presión Sistólica (PAS): ");
+                float pas = scanner.nextFloat();
+
+                System.out.print("Introduce la Presión Diastólica (PAD): ");
+                float pad = scanner.nextFloat();
+
+                float map = calculator.calculateMAP(pas, pad);
+                String clasificacion = calculator.mapClassification(map);
+
+                System.out.println("\n--- RESULTADOS ---");
+                System.out.printf("Valor MAP: %.2f mmHg\n", map);
+                System.out.println("Clasificación: " + clasificacion);
+              
+            } else if (opcion == 3) {
+                //IBW
+                System.out.print("Ingrese su altura en cm: ");
+                int altura = scanner.nextInt();
+                System.out.print("Escriba su sexo (Hombre o Mujer): ");
+                String sexo = scanner.next().toLowerCase(); 
+                double ibw = calculator.ibw(altura, sexo);
+                System.out.println("Su IBW es: " + ibw + " kg");
+            
+            } else if (opcion == 4) {
+                //PRUEBA PATRÓN ADAPTER Y PROXY
+                System.out.println("\n--- SISTEMA HOSPITAL COSTA DEL SOL DE MARBELLA---");
+                HealthHospital adaptadorReal = new HealthHospitalAdapter();
+                HealthHospitalProxy hospitalSystem = new HealthHospitalProxy(adaptadorReal);
+
+                System.out.print("Introduce altura (m): ");
+                float altura = scanner.nextFloat();
+
+                System.out.print("Introduce peso (g): ");
+                int pesoGramos = scanner.nextInt();
+
+                System.out.print("Introduce género ('M' para Mujer, 'H' para Hombre): ");
+                char genero = scanner.next().charAt(0);
+
+                //Probar Índice de Masa Corporal (BMI) con la interfaz del hospital
+                Tuple<Float, String> resultadoBMI = hospitalSystem.indiceMasaCorporal(altura, pesoGramos);
+                System.out.println("\n--- RESULTADOS HOSPITAL ---");
+                System.out.printf("Su Índice de Masa Corporal es: %.2f\n", resultadoBMI.getX());
+                System.out.println("Clasificación: " + resultadoBMI.getY());
+
+                //Probar Peso Corporal Ideal con la interfaz del hospital
+                int resultadoIBW = hospitalSystem.pesoCorporalIdeal(genero, altura);
+                System.out.println("Su Peso Corporal Ideal es: " + resultadoIBW + " kg");
+
+                //Mostrar estadísticas recopiladas por Proxy
+                System.out.println("\n--- ESTADÍSTICAS DEL SISTEMA (HealthStats) ---");
+                System.out.println("Número Total Pacientes: " + hospitalSystem.numTotalPacientes());
+                System.out.printf("Altura Media: %.2f m\n", hospitalSystem.alturaMedia());
+                System.out.printf("Peso Medio: %.2f kg\n", hospitalSystem.pesoMedio());
+                System.out.printf("IMC Medio: %.2f\n", hospitalSystem.imcMedio());
+                System.out.println("Número Sexo Hombre: " + hospitalSystem.numSexoH() + " | Número Sexo Mujer: " + hospitalSystem.numSexoM());
+
+            } else if (opcion == 5) {
+                // PRUEBA PATRÓN DECORATOR (apartado 3c)
+
+                System.out.println("\n--- CALCULADORA CON PATRÓN DECORATOR ---");
+
+                HealthHospital adapter = new HealthHospitalAdapter();
+                HealthHospitalProxy proxy = new HealthHospitalProxy(adapter);
+
+                System.out.println("¿Qué versión desea usar?");
+                System.out.println("  E -> Europea   (metros y gramos)");
+                System.out.println("  A -> Americana (pies y libras)"); 
+                System.out.print("Selecciona versión: ");
+                char version = scanner.next().toUpperCase().charAt(0);
+
+                if (version == 'E') {
+                    HealthHospital euroCalc = new HealthCalcEuropeDecorator(proxy);
+                    System.out.print("Introduce altura en metros: ");
+                    float altura = scanner.nextFloat();
+                    System.out.print("Introduce peso en gramos: ");
+                    int peso = scanner.nextInt();
+                    System.out.println();
+                    Tuple<Float, String> resultado = euroCalc.indiceMasaCorporal(altura, peso);
+                    System.out.println("Clasificación: " + resultado.getY());
+
+                } else if (version == 'A') {
+                    HealthHospital americaCalc = new HealthCalcAmericaDecorator(proxy);
+                    System.out.print("Introduce altura en pies: ");
+                    float altura = scanner.nextFloat();
+                    System.out.print("Introduce peso en libras: ");
+                    int peso = scanner.nextInt();
+                    System.out.println();
+                    Tuple<Float, String> resultado = americaCalc.indiceMasaCorporal(altura, peso);
+                    System.out.println("Clasificación: " + resultado.getY());
+
+                } else {
+                    System.out.println("Versión no reconocida.");
+                }
+
+            } else {
+                System.out.println("Opción no válida.");
+            }    
+
+        } catch (InvalidHealthDataException e) {
+            System.err.println("\nERROR DE DATOS: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("\nERROR: Entrada no válida. Por favor, usa números.");
+        } finally {
+            scanner.close();
+            System.out.println("Saliendo del programa...");
+        }
+    }
+}
+

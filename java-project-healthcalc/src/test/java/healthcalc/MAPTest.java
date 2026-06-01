@@ -26,7 +26,7 @@ public class MAPTest {
 
     @BeforeEach
     void setUp() {
-        healthCalc = new HealthCalcImpl();
+        healthCalc = HealthCalcImpl.getInstance();
     }
 
     @Nested
