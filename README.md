@@ -510,6 +510,10 @@ El siguiente diagrama muestra cómo los cuatro patrones se integran en una únic
 
 **(5) Cambios manuales:** 1 archivo nuevo (interfaz IdealBodyWeight), 1 línea de declaración modificada en HealthCalcImpl y 1 método nuevo añadido.
 
+## Práctica 8: Nuevo Proyecto HealthCalc
+
+![Kanban de la Práctica 8](./doc/Kanban_P8.png)
+
 ## Instalación y ejecución
 
 <details>
